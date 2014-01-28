@@ -2,7 +2,6 @@
   "name": "HoldThePhone",
   "version": "0.0.0",
   "description": "testing parse db",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +10,9 @@
     "url": "https://github.com/hseog/HoldThePhone.git"
   },
   "author": "Heemin and Eugene",
+  "dependencies": {
+     "express": "3.x"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hseog/HoldThePhone/issues"
