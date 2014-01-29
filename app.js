@@ -33,6 +33,9 @@ app.get('/about', function(req, res) {
     res.send('<h2>about me</h2>');
 });
 
+// Test ejs
+app.get('/helloworld/:name', routes.helloworld);
+
 app.get('/name/:myname', function(req, res) {
     res.send('My name is ' + req.params.myname);
 });

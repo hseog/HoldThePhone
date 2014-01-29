@@ -12,7 +12,12 @@
   },
   "author": "Heemin and Eugene",
   "dependencies": {
-     "express": "3.x"
+    "express": "3.x",
+    "mongoose": "~3.8.5",
+    "connect-mongo": "~0.4.0",
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6",
+    "ejs": "~0.8.5"
   },
   "license": "ISC",
   "bugs": {
