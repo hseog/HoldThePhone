@@ -35,6 +35,7 @@ app.get('/about', function(req, res) {
 
 // Test ejs
 app.get('/helloworld/:name', routes.helloworld);
+app.post('/helloworld/result', routes.helloworld_result)
 
 app.get('/name/:myname', function(req, res) {
     res.send('My name is ' + req.params.myname);
