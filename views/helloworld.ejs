@@ -1,4 +1,17 @@
-<!-- Test -->
+<!-- headers/footers -->
+<% include header %>
 
+<!-- Test -->
 <h1>Hello World!</h1>
 <p><%= name %></p>
+
+<!-- forms -->
+<form action="/helloworld/result" method="post">
+	<label for="classroom">Classroom:</label>
+	<input type="text" id="classroom" name="classroom" placeholder="Enter a classroom name" />
+	<label for="password">Password:</label>
+	<input type="password" id="password" name="password" />
+
+	<input type="submit" value="Register" />
+
+<% include footer %>
