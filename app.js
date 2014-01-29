@@ -9,6 +9,10 @@ var path = require('path');
 
 var app = express();
 
+var db = require('./models/db');
+
+
+
 // environment
 // Set port 3000
 app.set('port', process.env.PORT || 3000);
@@ -32,11 +36,14 @@ if ('development' == app.get('env')) {
 // Test ejs
 //app.get('/helloworld/:name', routes.helloworld);
 //app.post('/helloworld/result', routes.helloworld_result)
+db.mongoose.once('open', function callback() {
+	app.get('/joinroom', routes.joinroom);
+	app.post('/joinroom/result', routes.joinroom_result);
+	app.get('/newroom', routes.newroom);
+	app.post('/newroom/result', routes.newroom_result);
 
-app.get('/joinroom', routes.joinroom);
-app.post('/joinroom/result', routes.joinroom_result);
-app.get('/newroom', routes.newroom);
-app.post('/newroom/result', routes.newroom_result);
+});
+
 
 http.createServer(app).listen(app.get('port'), function(){
       console.log('Express server listening on port ' + app.get('port'));
