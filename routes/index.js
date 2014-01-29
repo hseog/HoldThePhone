@@ -54,7 +54,11 @@ exports.joinroom_result = function(req, res) {
 			res.render('joinroom.ejs');
 			return;
 		}
-		res.render('joinroom_result.ejs', {roomname:req.body.roomname});
+		if(body.results[0].author == req.body.author) {
+			res.render('room_admin.ejs', {roomname:req.body.roomname});
+		} else {
+			res.render('room_standard.ejs', {roomname:req.body.roomname});
+		}
 	});
 }
 
@@ -95,6 +99,10 @@ exports.newroom_result = function(req, res) {
 			console.log('object created = ', body);
 			console.log('object id = ', body.objectId);
 		});
-		res.render('newroom_result.ejs', {roomname:req.body.roomname});
+		res.render('room_admin.ejs', {roomname:req.body.roomname});
 	});
+}
+
+exports.panic = function(req, res) {
+	res.render('room_standard.ejs');
 }

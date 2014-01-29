@@ -38,6 +38,7 @@ app.get('/joinroom', routes.joinroom);
 app.post('/joinroom/result', routes.joinroom_result);
 app.get('/newroom', routes.newroom);
 app.post('/newroom/result', routes.newroom_result);
+app.get('/panic', routes.panic);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));
