@@ -3,10 +3,10 @@
  */
 
 var express = require("express");
+var MongoStore = require('connect-mongo')(express);
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
-
 var app = express();
 
 var db = require('./models/db');
@@ -20,10 +20,23 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+
+//cookies
+//app.use(express.cookieParser());
+//app.use(express.session({
+//	secret: 'keyboard cat',
+//	store: new MongoStore({
+//		mongoose_connection: db
+//	})
+//}));
+
 // Allows parsing of body
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+
+
+
 // Sets homepage
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.compress());
@@ -42,7 +55,7 @@ db.mongoose.once('open', function callback() {
 	app.get('/newroom', routes.newroom);
 	app.post('/newroom/result', routes.newroom_result);
 
-	app.get('/panic', routes.panic);
+	app.post('/panic', routes.panic);
 
 });
 
