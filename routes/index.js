@@ -99,9 +99,22 @@ exports.newroom_result = function(req, res) {
 
 exports.panic = function(req, res) {
 	//Schema.where({ roomname: req.session.room}).update({ count: count++ });
-	console.log(req);
-	console.log(req.query.roomid);
-	res.render('header.ejs');
-	//Schema.findByIdAndUpdate(id, {count: count++})
+	var id = req.query.roomid;
+	var newcount;
+	Schema.findById(id, function (err, docs){
+		if(err) {
+			console.log(err);
+			res.status(500).json({status: 'fail'});
+			return;
+		}
+		console.log(docs);
+		console.log(docs.count);
+		newcount = docs.count + 1;
+		console.log(newcount);
+		Schema.findByIdAndUpdate(id, {count: newcount}, function(err, docs){
+			console.log(docs);
+		});
+	});
+	res.render('error.ejs');
 }
 
