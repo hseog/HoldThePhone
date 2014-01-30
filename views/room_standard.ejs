@@ -5,8 +5,20 @@
 		var url = '/panic?roomid=' + '<%=roomid%>';
 		$("#panic").attr("disabled", "disabled");
 		jQuery.ajax(url);
-		window.setTimeout(function() {$('#panic').removeAttr("disabled")}, 3000);
+		window.setTimeout(function() {
+			$('#panic').removeAttr("disabled");
+			var url = '/unpanic?roomid=' + '<%=roomid%>';
+			jQuery.ajax(url);
+		}, 3000);
+		
+
 	}
+
+	window.onunload = function() {
+		if($('#panic').)
+		var url = '/unpanic?roomid=' + '<%=roomid%>';
+		jQuery.ajax(url);
+	};
 </script>
 
 

@@ -2,14 +2,14 @@
  * Module dependencies.
  */
 
-var express = require("express");
-var MongoStore = require('connect-mongo')(express);
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
-var app = express();
+ var express = require("express");
+ var MongoStore = require('connect-mongo')(express);
+ var routes = require('./routes');
+ var http = require('http');
+ var path = require('path');
+ var app = express();
 
-var db = require('./models/db');
+ var db = require('./models/db');
 
 
 
@@ -43,7 +43,7 @@ app.use(express.compress());
 
 // development only
 if ('development' == app.get('env')) {
-   app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
 
 // Test ejs
@@ -56,10 +56,11 @@ db.mongoose.once('open', function callback() {
 	app.post('/newroom/result', routes.newroom_result);
 
 	app.get('/panic', routes.panic);
+	app.get('/unpanic', routes.unpanic);
 
 });
 
 
 http.createServer(app).listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-   });
+	console.log('Express server listening on port ' + app.get('port'));
+});
