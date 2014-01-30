@@ -43,10 +43,25 @@ exports.joinroom_result = function(req, res) {
 }
 
 exports.newroom = function(req, res) {
-	res.render('newroom.ejs');
+	res.render('newroom.ejs', {isRoomnameEmpty:false, 
+								isPasswordEmpty:false, isAuthorEmpty:false});
 }
 
 exports.newroom_result = function(req, res) {
+	// var isRoomnameEmpty = false;
+	// console.log(req.body.roomname.trim().length);
+	// //check all fields
+	// if (req.body.roomname.trim().length == 0) {
+	// 	isRoomnameEmpty = true;
+	// 	res.render('newroom.ejs', {isRoomnameEmpty:isRoomnameEmpty, 
+	// 							isPasswordEmpty:false, isAuthorEmpty:false});
+	// 	return;
+	// }
+//		|| req.body.password == undefined 
+//		|| req.body.author == undefined) {
+
+//	}
+
 	//check if in database
 
 	Schema.find({ roomname: req.body.roomname}, function (err, docs) {

@@ -1,8 +1,16 @@
 <% include header %>
 
+<script>
+	function disableButton() {
+		$("#panic").attr("disabled", "disabled");
+		window.setTimeout(function() {$('#panic').removeAttr("disabled")}, 3000);
+	}
+</script>
+
+
 <form action="/panic" role="form" method="post">
 	<input type="text" id="roomid" name="roomid" value=<%=roomid%> />
-	<button type="submit" class="btn btn-default">HELP ME</button>
+	<button type="submit" class="btn btn-default" onclick="disableButton();" id="panic">HELP ME</button>
 </form>
 
 <% include footer %>

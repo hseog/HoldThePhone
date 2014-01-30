@@ -1,9 +1,23 @@
 <!-- headers/footers -->
 <% include header %>
 
+
+<script>
+	function validateForm()
+	{
+		var roomname=document.getElementById('roomname').value.trim();
+		var password=document.getElementById('password').value.trim();
+		var author=document.getElementById('author').value.trim();
+		alert(roomname);
+		console.log(roomname);
+		return false;
+
+	}
+</script>
+
 <!-- Form -->
 
-<form action="/newroom/result" role="form" method="post">
+<form action="/newroom/result" role="form" onsubmit = "return validateForm()" method="post">
 	<div class="form-group">
 		<label for="roomname">Room Name</label>
 		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
@@ -18,5 +32,6 @@
 	</div>
 	<button type="submit" class="btn btn-default">Register</button>
 </form>
+
 
 <% include footer %>
