@@ -2,7 +2,9 @@
 
 <script>
 	function disableButton() {
+		var url = '/panic?roomid=' + '<%=roomid%>';
 		$("#panic").attr("disabled", "disabled");
+		jQuery.ajax(url);
 		window.setTimeout(function() {$('#panic').removeAttr("disabled")}, 3000);
 	}
 </script>
@@ -10,7 +12,7 @@
 
 <form action="/panic" role="form" method="post">
 	<input type="text" id="roomid" name="roomid" value=<%=roomid%> />
-	<button type="submit" class="btn btn-default" onclick="disableButton();" id="panic">HELP ME</button>
+	<button type="button" class="btn btn-default" onclick="disableButton();" id="panic">HELP ME</button>
 </form>
 
 <% include footer %>

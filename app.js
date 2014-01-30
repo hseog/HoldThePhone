@@ -55,7 +55,7 @@ db.mongoose.once('open', function callback() {
 	app.get('/newroom', routes.newroom);
 	app.post('/newroom/result', routes.newroom_result);
 
-	app.post('/panic', routes.panic);
+	app.get('/panic', routes.panic);
 
 });
 
