@@ -9,16 +9,32 @@
 			$('#panic').removeAttr("disabled");
 			var url = '/unpanic?roomid=' + '<%=roomid%>';
 			jQuery.ajax(url);
-		}, 3000);
-		
-
+		}, 3000);	
 	}
-
-	window.onunload = function() {
-		if($('#panic').)
-		var url = '/unpanic?roomid=' + '<%=roomid%>';
-		jQuery.ajax(url);
-	};
+	$(document).ready(function(){
+		var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+		var isChrome = !!window.chrome && !isOpera;
+		console.log(isChrome);
+		console.log($('#panic').attr('disabled') == 'disabled');
+		if (isChrome) {
+			window.onbeforeunload = function() {
+				var url = '/unpanic?roomid=' + '<%=roomid%>';
+				if ($('#panic').attr('disabled') == 'disabled') {
+					jQuery.ajax(url);
+					return "Are you sure you would like to leave? (Already 	decremented)";
+				}
+				
+			};
+		} else {
+			window.onbeforeunload = null;
+		}
+		window.onunload = function() {
+			if ($('#panic').attr('disabled') == 'disabled') {
+				var url = '/unpanic?roomid=' + '<%=roomid%>';
+				jQuery.ajax(url);
+			}
+		};
+	});
 </script>
 
 
