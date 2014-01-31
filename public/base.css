@@ -21,3 +21,11 @@ body {
 #footer {
   height: 60px;
 }
+
+/* Get rid of highlighting in header */
+#header a {
+	color:rgb(51,51,51);
+}
+#header a:hover {
+	text-decoration: none;
+}
