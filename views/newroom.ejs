@@ -1,37 +1,78 @@
 <!-- headers/footers -->
 <% include header %>
 
+<!--Error message-->
+<!-- Form -->
+
+<form action="/newroom/result" role="form" method="post">
+	<div class="form-group" id="roomname_group">
+		<label class="control-label" for="roomname">Room Name</label>
+		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
+	</div>
+	<div class="form-group" id="password_group">
+		<label class="control-label" for="password">Password</label>
+		<input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
+	</div>
+	<div class="form-group" id="author_group">
+		<label class="control-label" for="author">Author</label>
+		<input type="text" class="form-control" id="author" name="author" placeholder="Author"/>
+	</div>
+	<button type="submit" onclick="return validateForm()" class="btn btn-default">Register</button>
+</form>
 
 <script>
 	function validateForm()
 	{
+		var isValid = true;
 		var roomname=document.getElementById('roomname').value.trim();
 		var password=document.getElementById('password').value.trim();
 		var author=document.getElementById('author').value.trim();
-		alert(roomname);
-		console.log(roomname);
-		return false;
+		var emptyFieldError = '<span class="help-block" id="empty_error">This field cannot be empty!</span>';
+		var shortPassError = '<span class="help-block" id="shortpass_error">Password must be at least 8 characters long.</span>';
 
+		if (roomname.length == 0) {
+			var cssclass = $('#roomname_group').attr('class');
+			cssclass = cssclass + ' has-error'
+			$('#roomname_group').addClass('has-error has-feedback');
+			if ($('#roomname_group .help-block#empty_error').length == 0) { 
+				$('#roomname_group').append(emptyFieldError);
+			}
+			isValid = false;
+		} else {
+			$('#roomname_group').removeClass('has-error');
+			$('#roomname_group .help-block#empty_error').remove();
+		}
+		if (password.length == 0) {
+			$('#password_group').addClass('has-error');
+			$('#password_group .help-block#shortpass_error').remove();
+			if ($('#password_group .help-block#empty_error').length == 0) {
+				$('#password_group').append(emptyFieldError);
+			}
+			isValid = false;
+		} else if (password.length < 8) {
+			$('#password_group').addClass('has-error');
+			$('#password_group .help-block#empty_error').remove();
+			if ($('#password_group .help-block#shortpass_error').length == 0) {
+				$('#password_group').append(shortPassError);
+			}
+			isValid = false;
+		} else {
+			$('#password_group').removeClass('has-error');
+			$('#password_group .help-block#empty_error').remove();
+			$('#password_group .help-block#shortpass_error').remove();
+		}
+		if (author.length == 0) {
+			$('#author_group').addClass('has-error');
+			if ($('#author_group .help-block#empty_error').length == 0) {
+				$('#author_group').append(emptyFieldError);
+			}
+			isValid = false;
+		} else {
+			$('#author_group').removeClass('has-error');
+			$('#author_group .help-block#empty_error').remove();
+		}
+		return isValid;
 	}
 </script>
-
-<!-- Form -->
-
-<form action="/newroom/result" role="form" onsubmit = "return validateForm()" method="post">
-	<div class="form-group">
-		<label for="roomname">Room Name</label>
-		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
-	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
-	</div>
-	<div class="form-group">
-		<label for="author">Author</label>
-		<input type="text" class="form-control" id="author" name="author" placeholder="Author"/>
-	</div>
-	<button type="submit" class="btn btn-default">Register</button>
-</form>
-
 
 <% include footer %>
