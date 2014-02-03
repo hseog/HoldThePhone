@@ -10,8 +10,9 @@
 		<%if (isRoomError) { %><span class="help-block" id="dne_error">This room does not exist!</span><% } %>
 		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
 	</div>
-	<div class="form-group" id="password_group">
+	<div class="form-group <%if (isPasswordError) { %>has-error<% } %>" id="password_group">
 		<label class="control-label" for="password">Password</label>
+		<%if (isPasswordError) { %><span class="help-block" id="password_error">Password does not match!</span><% } %>
 		<input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
 	</div>
 	<div class="form-group" id="author_group">
@@ -30,11 +31,11 @@
 		var author=document.getElementById('author').value.trim();
 		var emptyFieldError = '<span class="help-block" id="empty_error">This field cannot be empty!</span>';
 
+		$('#roomname_group .help-block#dne_error').remove();
+		$('#password_group .help-block#password_error').remove();
+		
 		if (roomname.length == 0) {
-			var cssclass = $('#roomname_group').attr('class');
-			cssclass = cssclass + ' has-error'
-			$('#roomname_group').addClass('has-error has-feedback');
-			$('#roomname_group .help-block#dne_error').remove();
+			$('#roomname_group').addClass('has-error');
 			if ($('#roomname_group .help-block#empty_error').length == 0) { 
 				$('#roomname_group').append(emptyFieldError);
 			}
@@ -42,7 +43,6 @@
 		} else {
 			$('#roomname_group').removeClass('has-error');
 			$('#roomname_group .help-block#empty_error').remove();
-			$('#roomname_group .help-block#dne_error').remove();
 		}
 		if (password.length == 0) {
 			$('#password_group').addClass('has-error');

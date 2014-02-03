@@ -5,8 +5,9 @@
 <!-- Form -->
 
 <form action="/newroom/result" role="form" method="post">
-	<div class="form-group" id="roomname_group">
+	<div class="form-group <%if (isRoomExistError) { %>has-error<% } %>" id="roomname_group">
 		<label class="control-label" for="roomname">Room Name</label>
+		<%if (isRoomExistError) { %><span class="help-block" id="room_exist_error">Room already exists!</span><% } %>
 		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
 	</div>
 	<div class="form-group" id="password_group">
@@ -30,6 +31,8 @@
 		var emptyFieldError = '<span class="help-block" id="empty_error">This field cannot be empty!</span>';
 		var shortPassError = '<span class="help-block" id="shortpass_error">Password must be at least 8 characters long.</span>';
 
+		$('#roomname_group .help-block#room_exist_error').remove();
+		
 		if (roomname.length == 0) {
 			var cssclass = $('#roomname_group').attr('class');
 			cssclass = cssclass + ' has-error'

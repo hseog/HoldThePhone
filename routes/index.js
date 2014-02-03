@@ -27,13 +27,13 @@ exports.joinroom_result = function(req, res) {
 
 		if (docs.length == 0){
 			console.log('room doesn\'t exist');
-			errorMessage='room doesn\'t exist';
+			//errorMessage='room doesn\'t exist';
 			res.render('joinroom.ejs', {isRoomError: true, isPasswordError: false});
 			return;
 		} 
 		if(docs[0].password != req.body.password) {
 			console.log('incorrect password');
-			errorMessage='incorrect password';
+			//errorMessage='incorrect password';
 			res.render('joinroom.ejs', {isRoomError: false, isPasswordError: true});
 			return;
 		}
@@ -44,33 +44,16 @@ exports.joinroom_result = function(req, res) {
 			var id = docs[0]._id;
 			res.render('room_standard.ejs', {roomid: id});
 		}
-
-
 	});
 }
 
 exports.newroom = function(req, res) {
-	res.render('newroom.ejs', {isRoomnameEmpty:false, 
-								isPasswordEmpty:false, isAuthorEmpty:false});
+	res.render('newroom.ejs', {isRoomExistError: false});
 }
 
 exports.newroom_result = function(req, res) {
-	// var isRoomnameEmpty = false;
-	// console.log(req.body.roomname.trim().length);
-	// //check all fields
-	// if (req.body.roomname.trim().length == 0) {
-	// 	isRoomnameEmpty = true;
-	// 	res.render('newroom.ejs', {isRoomnameEmpty:isRoomnameEmpty, 
-	// 							isPasswordEmpty:false, isAuthorEmpty:false});
-	// 	return;
-	// }
-//		|| req.body.password == undefined 
-//		|| req.body.author == undefined) {
-
-//	}
-
+	
 	//check if in database
-
 	Schema.find({ roomname: req.body.roomname}, function (err, docs) {
 		if (err) {
 			console.log(err);
@@ -97,7 +80,7 @@ exports.newroom_result = function(req, res) {
 			} else {
 				console.log(docs);
 				console.log('this roomname already exists');
-				res.render('newroom.ejs');
+				res.render('newroom.ejs', {isRoomExistError: true});
 			}
 		}
 	});
