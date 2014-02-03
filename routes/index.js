@@ -13,7 +13,7 @@ var ejs = require('ejs');
 
 
 exports.joinroom = function(req, res) {
-	res.render('joinroom.ejs');
+	res.render('joinroom.ejs', {isRoomError: false, isPasswordError: false});
 }
 
 exports.joinroom_result = function(req, res) {
@@ -27,9 +27,16 @@ exports.joinroom_result = function(req, res) {
 
 		if (docs.length == 0){
 			console.log('room doesn\'t exist');
-			res.render('joinroom.ejs');
+			errorMessage='room doesn\'t exist';
+			res.render('joinroom.ejs', {isRoomError: true, isPasswordError: false});
 			return;
 		} 
+		if(docs[0].password != req.body.password) {
+			console.log('incorrect password');
+			errorMessage='incorrect password';
+			res.render('joinroom.ejs', {isRoomError: false, isPasswordError: true});
+			return;
+		}
 
 		if(docs[0].author == req.body.author) {
 			res.render('room_admin.ejs');

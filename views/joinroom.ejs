@@ -5,8 +5,9 @@
 <!-- Form -->
 
 <form action="/joinroom/result" role="form" method="post">
-	<div class="form-group" id ="roomname_group">
+	<div class="form-group <%if (isRoomError) { %>has-error<% } %>" id ="roomname_group">
 		<label class="control-label" for="roomname">Room Name</label>
+		<%if (isRoomError) { %><span class="help-block" id="dne_error">This room does not exist!</span><% } %>
 		<input type="text" class="form-control" id="roomname" name="roomname" placeholder="Room Name" />
 	</div>
 	<div class="form-group" id="password_group">
@@ -33,6 +34,7 @@
 			var cssclass = $('#roomname_group').attr('class');
 			cssclass = cssclass + ' has-error'
 			$('#roomname_group').addClass('has-error has-feedback');
+			$('#roomname_group .help-block#dne_error').remove();
 			if ($('#roomname_group .help-block#empty_error').length == 0) { 
 				$('#roomname_group').append(emptyFieldError);
 			}
@@ -40,6 +42,7 @@
 		} else {
 			$('#roomname_group').removeClass('has-error');
 			$('#roomname_group .help-block#empty_error').remove();
+			$('#roomname_group .help-block#dne_error').remove();
 		}
 		if (password.length == 0) {
 			$('#password_group').addClass('has-error');
