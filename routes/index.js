@@ -130,9 +130,14 @@ exports.unpanic = function(req, res) {
 
 // Reset count
 exports.reset = function(req, res) {
-	var id = req.query.roomid;
+	var id = req.body.id;
 	Schema.findByIdAndUpdate(id, {count: 0}, function(err, docs){
-		console.log(docs);
+	 	if(err) {
+			console.log(err);
+			res.status(500).json({status: 'fail'});
+			return;
+		}
+	 	console.log(docs);
 	});
 }
 

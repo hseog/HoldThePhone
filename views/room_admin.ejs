@@ -3,5 +3,15 @@
 <h1>Welcome to Room <%=roomname%></h1>
 <p>yo</p>
 <p><%=roomid%></p>
+<button type="button" class="btn btn-default" onclick="resetCount();" id="panic">Reset Counter</button>
 
+<script>
+	function resetCount() {
+		jQuery.ajax({
+			type: 'POST',
+			url: '/resetCount',
+			data: { id: '<%=roomid%>'}
+		});
+	}
+</script>
 <% include footer %>

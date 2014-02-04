@@ -57,6 +57,7 @@ db.mongoose.once('open', function callback() {
 
 	app.get('/panic', routes.panic);
 	app.get('/unpanic', routes.unpanic);
+	app.post('/resetCount', routes.reset);
 
 });
 
