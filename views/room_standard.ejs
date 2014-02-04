@@ -1,5 +1,10 @@
 <% include header %>
 
+<form action="/panic" role="form" method="post">
+	<input type="text" id="roomid" name="roomid" value=<%=roomid%> readonly />
+	<button type="button" class="btn btn-default" onclick="disableButton();" id="panic">HELP ME</button>
+</form>
+
 <script>
 	function disableButton() {
 		var url = '/panic?roomid=' + '<%=roomid%>';
@@ -36,11 +41,5 @@
 		};
 	});
 </script>
-
-
-<form action="/panic" role="form" method="post">
-	<input type="text" id="roomid" name="roomid" value=<%=roomid%> />
-	<button type="button" class="btn btn-default" onclick="disableButton();" id="panic">HELP ME</button>
-</form>
 
 <% include footer %>

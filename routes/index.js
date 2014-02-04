@@ -38,11 +38,12 @@ exports.joinroom_result = function(req, res) {
 			return;
 		}
 
+		var name = docs[0].roomname;
+		var id = docs[0]._id;
 		if(docs[0].author == req.body.author) {
-			res.render('room_admin.ejs');
+			res.render('room_admin.ejs', {roomid: id, roomname: name});
 		} else {
-			var id = docs[0]._id;
-			res.render('room_standard.ejs', {roomid: id});
+			res.render('room_standard.ejs', {roomid: id, roomname: name});
 		}
 	});
 }
@@ -58,31 +59,31 @@ exports.newroom_result = function(req, res) {
 		if (err) {
 			console.log(err);
 			res.status(500).json({status: 'fail'});
-		} else  {
-			//if it doesn't already exist in database
-			if (docs.length == 0) {
-				var Room = new Schema({
-					roomname: req.body.roomname,
-					password: req.body.password,
-					author: req.body.author,
-					count: 0
-				});
-				Room.save(function (err, product, numberAffected) {
-					if (err) {
-						console.log(err);
-						res.status(500).json({status: 'fail'});
-					} else {
-						console.log('success!');
-					}
-				});
-
-				res.render('room_admin.ejs');
-			} else {
-				console.log(docs);
-				console.log('this roomname already exists');
-				res.render('newroom.ejs', {isRoomExistError: true});
-			}
+			return;
+		} 
+		//if it already exists in database
+		if (docs.length != 0) {
+			console.log(docs);
+			console.log('this roomname already exists');
+			res.render('newroom.ejs', {isRoomExistError: true});
+			return;
 		}
+		//if it doesn't already exist in database
+		var Room = new Schema({
+			roomname: req.body.roomname,
+			password: req.body.password,
+			author: req.body.author,
+			count: 0
+		});
+		Room.save(function (err, product, numberAffected) {
+			if (err) {
+				console.log(err);
+				res.status(500).json({status: 'fail'});
+				return;
+			}
+			console.log('success!');
+			res.render('room_admin.ejs', {roomid: product._id, roomname: product.roomname});
+		});
 	});
 }
 
@@ -125,6 +126,14 @@ exports.unpanic = function(req, res) {
 		});
 	});
 	res.render('error.ejs');
+}
+
+// Reset count
+exports.reset = function(req, res) {
+	var id = req.query.roomid;
+	Schema.findByIdAndUpdate(id, {count: 0}, function(err, docs){
+		console.log(docs);
+	});
 }
 
 exports.close = function(req, res) {
