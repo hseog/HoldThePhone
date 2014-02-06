@@ -89,7 +89,7 @@ exports.newroom_result = function(req, res) {
 
 
 exports.panic = function(req, res) {
-	var id = req.query.roomid;
+	var id = req.body.roomid;
 	var newcount;
 	Schema.findById(id, function (err, docs){
 		if(err) {
@@ -109,7 +109,7 @@ exports.panic = function(req, res) {
 }
 
 exports.unpanic = function(req, res) {
-	var id = req.query.roomid;
+	var id = req.body.roomid;
 	var newcount;
 	Schema.findById(id, function (err, docs){
 		if(err) {
@@ -130,7 +130,7 @@ exports.unpanic = function(req, res) {
 
 // Reset count
 exports.reset = function(req, res) {
-	var id = req.body.id;
+	var id = req.body.roomid;
 	Schema.findByIdAndUpdate(id, {count: 0}, function(err, docs){
 	 	if(err) {
 			console.log(err);

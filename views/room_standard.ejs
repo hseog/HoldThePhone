@@ -7,13 +7,19 @@
 
 <script>
 	function disableButton() {
-		var url = '/panic?roomid=' + '<%=roomid%>';
 		$("#panic").attr("disabled", "disabled");
-		jQuery.ajax(url);
+		jQuery.ajax({
+				type: 'POST',
+				url: '/panic',
+				data: { roomid: '<%=roomid%>'}
+			});
 		window.setTimeout(function() {
 			$('#panic').removeAttr("disabled");
-			var url = '/unpanic?roomid=' + '<%=roomid%>';
-			jQuery.ajax(url);
+			jQuery.ajax({
+				type: 'POST',
+				url: '/unpanic',
+				data: { roomid: '<%=roomid%>'}
+			});
 		}, 3000);	
 	};
 	$(document).ready(function(){
@@ -25,7 +31,11 @@
 			window.onbeforeunload = function() {
 				var url = '/unpanic?roomid=' + '<%=roomid%>';
 				if ($('#panic').attr('disabled') == 'disabled') {
-					jQuery.ajax(url);
+					jQuery.ajax({
+						type: 'POST',
+						url: '/unpanic',
+						data: { roomid: '<%=roomid%>'}
+					});
 					return "Are you sure you would like to leave? (Already 	decremented)";
 				}
 				
@@ -36,7 +46,11 @@
 		window.onunload = function() {
 			if ($('#panic').attr('disabled') == 'disabled') {
 				var url = '/unpanic?roomid=' + '<%=roomid%>';
-				jQuery.ajax(url);
+				jQuery.ajax({
+					type: 'POST',
+					url: '/unpanic',
+					data: { roomid: '<%=roomid%>'}
+				});
 			}
 		};
 	});
